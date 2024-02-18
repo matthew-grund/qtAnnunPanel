@@ -25,15 +25,20 @@ class PyAnnunPanel(qtw.QWidget):
             for col in range(self.ncols):
                 ind = row * self.ncols + col
                 b = annun_button.Annunciator(self)
-                b.setGeometry(3+col*73, 3+row*33,70,30)
+                b.setGeometry(3+col*73, 3+row*33,70,30) # FIXME - use class values
                 b.setText(f"Button {ind+1}")
                 self.buttons.append(b)
-                print(f"added button {ind} at [{row},{col}]")
+                # print(f"added button {ind} at [{row},{col}]")
 
     def setError(self, annun_name, error_string ):
         for but in self.buttons:
             if but.text() == annun_name:
                 but.setError(error_string)
+
+    def setCritical(self, annun_name, crit_string ):
+        for but in self.buttons:
+            if but.text() == annun_name:
+                but.setCritical(crit_string)
 
     def setWarning(self, annun_name, warning_string ):
         for but in self.buttons:
@@ -43,21 +48,51 @@ class PyAnnunPanel(qtw.QWidget):
     def setInfo(self, annun_name, info_string ):
         for but in self.buttons:
             if but.text() == annun_name:
-                but.setError(info_string)
+                but.setInfo(info_string)
+
+    def setDebug(self, annun_name, info_string ):
+        for but in self.buttons:
+            if but.text() == annun_name:
+                but.setDebug(info_string)
 
     def changeAnnunName(self, old_button_name, new_button_name):
         for but in self.buttons:
             if but.text() == old_button_name:
                 but.setText(new_button_name)
+                # print(f"{old_button_name} is now {new_button_name}")
+
+    def changeAnnunColor(self, button_name, color):
+        for but in self.buttons:
+            if but.text() == button_name:
+                but.setColor(color)
+                # print(f"{button_name} is now colored {color}")
+
+    def setAnnunBlink(self, button_name, do_blink):
+        for but in self.buttons:
+            if but.text() == button_name:
+                but.setBlink(do_blink)
+                # print(f"{button_name} is blinking: {do_blink}")
 
 #  Start the QT app    
 def main(args=None):
     app = qtw.QApplication()
     pap = PyAnnunPanel()
     pap.show()
-    pap.setWarning("Button 2","Fuck")
-    pap.changeAnnunName("Button 3","Fuck You")
-    pap.setError("Button 1","Shit")
+    pap.changeAnnunName("Button 1","Error")
+    pap.changeAnnunName("Button 2","Warning")
+    pap.changeAnnunName("Button 3","Info")   
+    pap.changeAnnunName("Button 4", "Debug")
+    pap.changeAnnunName("Button 5","Critical")
+    pap.setWarning("Warning","Oh no! A warning.")
+    pap.setInfo("Info","Hooray! All good info.")
+    pap.setError("Error","Drat, an Error.")
+    pap.setDebug("Debug","some debug message.")
+    pap.setCritical("Critical","Oh crap.")
+    pap.changeAnnunName("Button 6", "MagEntA")
+    pap.changeAnnunColor("MagEntA","magenta")
+    pap.changeAnnunName("Button 7","Blink")
+    pap.changeAnnunColor("Blink","Cyan")
+    pap.setAnnunBlink("Blink",True)
     ret=app.exec()
     exit(ret)
 
