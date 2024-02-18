@@ -1,0 +1,11 @@
+README
+qtAnnunPanel
+Matthew Grund
+2024-02-18
+
+
+Overview
+
+This python application provides a simple annunciator panel. It relies on Qt - currently importing
+PySide6. It's meant to be used in other applications, especially ones reporting status.
+
