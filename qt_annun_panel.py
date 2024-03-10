@@ -25,8 +25,8 @@ class PyAnnunPanel(qtw.QWidget):
             for col in range(self.ncols):
                 ind = row * self.ncols + col
                 b = annun_button.Annunciator(self)
-                b.setGeometry(3+col*73, 3+row*33,70,30) # FIXME - use class values
-                b.setText(f"Button {ind+1}")
+                b.setGeometry(3+col*73, 3+row*33,70,30) # FIXME - use class static values
+                b.setText(f"Annun {ind+1}")
                 self.buttons.append(b)
                 # print(f"added button {ind} at [{row},{col}]")
 
@@ -78,19 +78,20 @@ def main(args=None):
     app = qtw.QApplication()
     pap = PyAnnunPanel()
     pap.show()
-    pap.changeAnnunName("Button 1","Error")
-    pap.changeAnnunName("Button 2","Warning")
-    pap.changeAnnunName("Button 3","Info")   
-    pap.changeAnnunName("Button 4", "Debug")
-    pap.changeAnnunName("Button 5","Critical")
+    # all access is by annunciator name
+    pap.changeAnnunName("Annun 1","Error")
+    pap.changeAnnunName("Annun 2","Warning")
+    pap.changeAnnunName("Annun 3","Info")   
+    pap.changeAnnunName("Annun 4", "Debug")
+    pap.changeAnnunName("Annun 5","Critical")
     pap.setWarning("Warning","Oh no! A warning.")
-    pap.setInfo("Info","Hooray! All good info.")
+    pap.setInfo("Info","Hooray! Good good info.")
     pap.setError("Error","Drat, an Error.")
     pap.setDebug("Debug","some debug message.")
     pap.setCritical("Critical","Oh crap.")
-    pap.changeAnnunName("Button 6", "MagEntA")
+    pap.changeAnnunName("Annun 6", "Magenta")
     pap.changeAnnunColor("MagEntA","magenta")
-    pap.changeAnnunName("Button 7","Blink")
+    pap.changeAnnunName("Annun 7","Blink")
     pap.changeAnnunColor("Blink","Cyan")
     pap.setAnnunBlink("Blink",True)
     ret=app.exec()
